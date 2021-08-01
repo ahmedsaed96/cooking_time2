@@ -25,11 +25,11 @@ dependencies:
     sdk: flutter
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
-  
   flutter_bloc: ^7.0.1
   google_fonts: ^2.0.0
   http: ^0.13.0
   lint: ^1.0.0
+  shared_preferences: ^2.0.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

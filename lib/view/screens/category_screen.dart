@@ -1,12 +1,15 @@
 import 'package:cocking_time/constant.dart';
 import 'package:cocking_time/cubit/area_cubit.dart';
+
 import 'package:cocking_time/cubit/category_cubit.dart';
 import 'package:cocking_time/cubit/category_states.dart';
 import 'package:cocking_time/cubit/home_cubit.dart';
-import 'package:cocking_time/view/screens/category_meal_details_screen.dart';
+
 import 'package:cocking_time/view/widgets/custom_drower.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'category_details_screen.dart';
 
 class CategoryScreen extends StatelessWidget {
   static const routeName = 'CategoryScreen';
@@ -19,13 +22,13 @@ class CategoryScreen extends StatelessWidget {
         child: BlocConsumer<CategoryCubit, CategoryStates>(
           listener: (context, state) {},
           builder: (context, state) => GridView.builder(
+            physics: const BouncingScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
             itemBuilder: (context, index) {
-              debugPrint('hello $index');
               return Container(
                 padding: const EdgeInsets.only(left: 10.0),
                 height: phoneSize(context).height / 3.7,
@@ -60,7 +63,7 @@ class CategoryScreen extends StatelessWidget {
                                   .categoryList[index]
                                   .strCategory!);
                       return Navigator.of(context)
-                          .pushNamed(CategoryMealDetails.routeName);
+                          .pushNamed(CategoryDetails.routeName);
                     } else {
                       CategoryCubit.get(context).areaFlag =
                           CategoryCubit.get(context).categoryFlag[index];
@@ -69,7 +72,7 @@ class CategoryScreen extends StatelessWidget {
                         .listOfAreaItems(
                             AreaCubit.get(context).allArea[index].strArea!)!;
                     return Navigator.of(context)
-                        .pushNamed(CategoryMealDetails.routeName);
+                        .pushNamed(CategoryDetails.routeName);
                   },
                   //
                 ),

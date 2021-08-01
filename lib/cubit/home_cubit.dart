@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:cocking_time/models/ingredients_model.dart';
 
 import 'package:cocking_time/models/meal_model.dart';
 import 'package:http/http.dart' as http;
@@ -85,7 +84,6 @@ class HomeCubit extends Cubit<HomeStates> {
     return mealsList;
   }
 
- 
   List<Meal>? randomMeals = [];
   Future getRandomMeal() async {
     try {
@@ -115,20 +113,12 @@ class HomeCubit extends Cubit<HomeStates> {
 //   List<Ingredient>? ingredients = [];
 //   void listOfIngredients(){
 // }
-  void addOrDeleteFromFav(BuildContext context, HomeCubit cubit, int index) {
+  void addOrDeleteFromFav(
+      BuildContext context, HomeCubit cubit, int index, Meal item) {
     try {
-      FavoriteCubit.get(context)
-                  .favoriteList
-                  .contains(cubit.randomMeals![index]) ||
-              FavoriteCubit.get(context)
-                  .favoriteList
-                  .contains(cubit.allMeals![index])
-          ? FavoriteCubit.get(context)
-              .favoriteList
-              .remove(cubit.randomMeals![index])
-          : FavoriteCubit.get(context)
-              .favoriteList
-              .add(cubit.randomMeals![index]);
+      FavoriteCubit.get(context).favoriteList.contains(item)
+          ? FavoriteCubit.get(context).favoriteList.remove(item)
+          : FavoriteCubit.get(context).favoriteList.add(item);
       emit(HomegetaddOrDeleteFromFavSuccess());
     } on Exception catch (e) {
       emit(HomegetaddOrDeleteFromFavErorr());

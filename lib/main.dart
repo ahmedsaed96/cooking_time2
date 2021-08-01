@@ -1,30 +1,33 @@
-// import 'package:cocking_time/dio_helper/dio_helper.dart';
-import 'package:cocking_time/constant.dart';
-import 'package:cocking_time/cubit/area_cubit.dart';
-import 'package:cocking_time/cubit/bloc_observer.dart';
-import 'package:cocking_time/cubit/category_cubit.dart';
-import 'package:cocking_time/cubit/favorite_cubit.dart';
-import 'package:cocking_time/cubit/home_cubit.dart';
-import 'package:cocking_time/cubit/settings_states.dart';
-import 'package:cocking_time/cubit/settins_cubit.dart';
-import 'package:cocking_time/view/screens/about_us_screen.dart';
-import 'package:cocking_time/view/screens/category_meal_details_screen.dart';
-import 'package:cocking_time/view/screens/category_screen.dart';
-import 'package:cocking_time/view/screens/details_screen.dart';
-import 'package:cocking_time/view/screens/favorites_screen.dart';
-import 'package:cocking_time/view/screens/home_screen.dart';
-import 'package:cocking_time/view/screens/recommended_item_detalis.dart';
-import 'package:cocking_time/view/screens/settings_screen.dart';
-import 'package:cocking_time/view/widgets/custom_drower.dart';
+// import 'dio_helper/dio_helper.dart';
+import 'package:cocking_time/view/screens/area_meal_details.dart';
+import 'package:cocking_time/view/screens/category_details_screen.dart';
+import 'package:cocking_time/view/screens/category_meal_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'constant.dart';
+import 'cubit/area_cubit.dart';
+import 'cubit/bloc_observer.dart';
+import 'cubit/category_cubit.dart';
+import 'cubit/favorite_cubit.dart';
+import 'cubit/home_cubit.dart';
+import 'cubit/settings_states.dart';
+import 'cubit/settins_cubit.dart';
+import 'local/shared_prefrences.dart';
+import 'view/screens/about_us_screen.dart';
+import 'view/screens/category_screen.dart';
+import 'view/screens/details_screen.dart';
+import 'view/screens/favorites_screen.dart';
+import 'view/screens/home_screen.dart';
+import 'view/screens/recommended_item_detalis.dart';
+import 'view/screens/settings_screen.dart';
+import 'view/widgets/custom_drower.dart';
 
-//اظبط خطوط الوضع المظلم
-// اخلص الاعدادات بتاعة التطبيق ان امكن
-// اخلص اخر صفحة(عنا)واخليه يبعتلي ايميل عن طريقها
-void main() {
-  // DioHelper.init();
+// ignore: avoid_void_async
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  await MySharedPrefrences.init();
+  MySharedPrefrences.getString(key: 'mode');
   runApp(MyApp());
 }
 
@@ -63,13 +66,14 @@ class MyApp extends StatelessWidget {
             AboutUsScreen.routeName: (context) => AboutUsScreen(),
             RecommendedItemDetailsScreen.routeName: (context) =>
                 RecommendedItemDetailsScreen(),
+            CategoryDetails.routeName: (context) => CategoryDetails(),
             CategoryMealDetails.routeName: (context) => CategoryMealDetails(),
+            AreaMealDetails.routeName: (context) => AreaMealDetails(),
           },
           debugShowCheckedModeBanner: false,
           theme: lightTheme,
           darkTheme: darkTheme,
-          // themeMode: ThemeMode.light,
-          themeMode: SettingsCubit.get(context).switchValue
+          themeMode: MySharedPrefrences.getString(key: 'mode') == 'true'
               ? ThemeMode.light
               : ThemeMode.dark,
           title: 'Cooking Time',

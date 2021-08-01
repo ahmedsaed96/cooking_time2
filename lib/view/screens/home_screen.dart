@@ -5,7 +5,6 @@ import 'package:cocking_time/cubit/settins_cubit.dart';
 import 'package:cocking_time/models/meal_model.dart';
 import 'package:cocking_time/view/screens/details_screen.dart';
 import 'package:cocking_time/view/screens/recommended_item_detalis.dart';
-
 import 'package:cocking_time/view/widgets/custom_drower.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +15,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
@@ -25,14 +23,13 @@ class HomeScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) => SafeArea(
           child: HomeCubit.get(context).randomMeals!.isEmpty
-              /*||
-                  HomeCubit.get(context).allMeals!.isNotEmpty */
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -331,10 +328,18 @@ class BuildTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20.0),
       child: TextField(
         decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: SettingsCubit.get(context).switchValue
+                      ? Colors.black
+                      : mainColor)),
           hintText: 'Search for your query',
-          hintStyle: googleStyleSmall(context),
-          border: const OutlineInputBorder(),
-          focusedBorder: const OutlineInputBorder(),
+          hintStyle: googleStyleSmaller(context),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: SettingsCubit.get(context).switchValue
+                      ? Colors.black
+                      : mainColor)),
           prefixIcon: Icon(Icons.search,
               color: SettingsCubit.get(context).switchValue
                   ? Colors.black

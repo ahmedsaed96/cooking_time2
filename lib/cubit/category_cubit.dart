@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:cocking_time/models/category_model.dart';
 import 'package:cocking_time/models/meal_model.dart';
+import 'package:cocking_time/view/screens/category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -54,8 +55,9 @@ class CategoryCubit extends Cubit<CategoryStates> {
     );
   }).toList();
 
-  changeDropDownMenu(String value) {
+  changeDropDownMenu(String value,) {
     firstItemInDropDown = value;
+    
     emit(CategorychangeDropDownMenusuccess());
   }
 

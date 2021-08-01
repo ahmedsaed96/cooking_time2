@@ -1,5 +1,6 @@
 import 'package:cocking_time/cubit/favorite_cubit.dart';
 import 'package:cocking_time/cubit/home_cubit.dart';
+import 'package:cocking_time/models/meal_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant.dart';
@@ -78,7 +79,12 @@ Padding coloredCardItem({
   );
 }
 
-Align buildAppbarDetais(BuildContext context, HomeCubit cubit, int index) {
+Align buildAppbarDetais(
+  BuildContext context,
+  HomeCubit cubit,
+  int index,
+  Meal item,
+) {
   //Not app bar exactly
   return Align(
     alignment: Alignment.topCenter,
@@ -104,9 +110,9 @@ Align buildAppbarDetais(BuildContext context, HomeCubit cubit, int index) {
             ),
             child: IconButton(
               tooltip: 'Add To Favorite',
-              icon: buildFavoriteIcon(context, cubit, index),
+              icon: buildFavoriteIcon(context, cubit, index, item),
               onPressed: () {
-                cubit.addOrDeleteFromFav(context, cubit, index);
+                cubit.addOrDeleteFromFav(context, cubit, index, item);
               },
             ),
           ),
@@ -120,15 +126,11 @@ Icon buildFavoriteIcon(
   BuildContext context,
   HomeCubit cubit,
   int index,
+  Meal item,
 ) {
   return Icon(
     // ignore: iterable_contains_unrelated_type
-    FavoriteCubit.get(context)
-                .favoriteList
-                .contains(cubit.randomMeals![index]) ||
-            FavoriteCubit.get(context)
-                .favoriteList
-                .contains(cubit.randomMeals![index])
+    FavoriteCubit.get(context).favoriteList.contains(item)
         ? Icons.bookmark
         : Icons.bookmark_outline,
     color: mainColor,

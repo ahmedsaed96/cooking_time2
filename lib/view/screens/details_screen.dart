@@ -1,6 +1,7 @@
 import 'package:cocking_time/cubit/favorite_cubit.dart';
 import 'package:cocking_time/cubit/home_cubit.dart';
 import 'package:cocking_time/cubit/home_states.dart';
+import 'package:cocking_time/local/shared_prefrences.dart';
 import 'package:cocking_time/view/widgets/custom_drower.dart';
 import 'package:cocking_time/view/widgets/functions.dart';
 import 'package:flutter/material.dart';
@@ -23,299 +24,154 @@ class DetailsScreen extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             final HomeCubit cubit = HomeCubit.get(context);
-            // void fillIngredients() {
-            //   // ignore: avoid_function_literals_in_foreach_calls
-            //   ingredients!.forEach((element) {
-            //     element.size = phoneSize(context);
-            //     element.context = context;
-            //     element.index = index;
-            //     element.ingredientItem =
-            //         cubit.randomMeals![index].strIngredient1;
-            //     element.quantity = cubit.randomMeals![index].strMeasure1;
-            //   });
-            // }
-            // fillIngredients();
             return Stack(
               children: [
                 Image.network(
                   thumb,
                   fit: BoxFit.cover,
                 ),
-                buildAppbarDetais(context, cubit, index),
+                buildAppbarDetais(
+                    context, cubit, index, cubit.randomMeals![index]),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     width: phoneSize(context).width,
                     height: phoneSize(context).height / 1.8,
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                        color:
+                            MySharedPrefrences.getString(key: 'mode') == 'true'
+                                ? Colors.white
+                                : Colors.blueGrey,
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(30.0),
                           topRight: Radius.circular(30.0),
                         )),
-                    child: Container(
-                      width: phoneSize(context).width,
-                      height: phoneSize(context).height / 1.9,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10.0),
+                        Container(
+                          width: phoneSize(context).width,
+                          height: phoneSize(context).height / 1.9,
+                          decoration: const BoxDecoration(
+                              // color: Colors.white,
+                              borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30.0),
                             topRight: Radius.circular(30.0),
                           )),
-                      child: SingleChildScrollView(
-                          child: Column(
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(top: 10.0, bottom: 30.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[400],
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              width: 40.0,
-                              height: 4.0,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                  cubit.randomMeals![index].strMeal!,
-                                  style: googleStyle(context),
-                                  // style: googleStyleSmall(context)
-                                  //     .copyWith(fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 20.0),
-                          coloredListBuilder(context),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: SizedBox(
-                              height: 50.0,
-                              width: phoneSize(context).width - 10,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                        'Category: ${cubit.randomMeals![index].strCategory}',
-                                        style: googleStyleSmall(context)
-                                            .copyWith(
-                                                fontWeight: FontWeight.w400)),
-                                  ),
-                                  const SizedBox(width: 10.0),
-                                  Expanded(
-                                    child: Text(
-                                        'Area: ${cubit.randomMeals![index].strArea}',
-                                        style: googleStyleSmall(context)
-                                            .copyWith(
-                                                fontWeight: FontWeight.w400)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 15.0,
-                                vertical: 8.0,
-                              ),
+                          child: SingleChildScrollView(
                               child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10.0, bottom: 30.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[400],
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                  width: 40.0,
+                                  height: 4.0,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Row(
                                   children: [
                                     Text(
-                                      'ingredients: ',
+                                      cubit.randomMeals![index].strMeal!,
                                       style: googleStyle(context),
                                     ),
-                                    const SizedBox(height: 10.0),
-                                    SizedBox(
-                                      height: 100.0,
-                                      child: ListView.builder(
-                                        itemCount: cubit.randomMeals![index]
-                                            .mealIngerientd!.length,
-                                        itemBuilder: (context, index) {
-                                          return buildIngredientsItem(
-                                            phoneSize(context),
-                                            context,
-                                            index,
-                                            cubit.randomMeals![index]
-                                            .mealIngerientd![index].ingredientItem,
-                                             cubit.randomMeals![index]
-                                            .mealIngerientd![index].measure,
-                                          );
-                                        },
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 20.0),
+                              coloredListBuilder(context),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: SizedBox(
+                                  height: 50.0,
+                                  width: phoneSize(context).width - 10,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                            'Category: ${cubit.randomMeals![index].strCategory}',
+                                            style: googleStyleSmall(context)
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w400)),
                                       ),
-                                    ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit.randomMeals![index].strIngredient1!,
-                                    //   cubit.randomMeals![index].strMeasure1!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit.randomMeals![index].strIngredient2!,
-                                    //   cubit.randomMeals![index].strMeasure2!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit.randomMeals![index].strIngredient3!,
-                                    //   cubit.randomMeals![index].strMeasure3!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit.randomMeals![index].strIngredient4!,
-                                    //   cubit.randomMeals![index].strMeasure4!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit.randomMeals![index].strIngredient5!,
-                                    //   cubit.randomMeals![index].strMeasure5!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit.randomMeals![index].strIngredient6!,
-                                    //   cubit.randomMeals![index].strMeasure6!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit.randomMeals![index].strIngredient7!,
-                                    //   cubit.randomMeals![index].strMeasure7!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit.randomMeals![index].strIngredient8!,
-                                    //   cubit.randomMeals![index].strMeasure8!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit.randomMeals![index].strIngredient9!,
-                                    //   cubit.randomMeals![index].strMeasure9!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient10!,
-                                    //   cubit.randomMeals![index].strMeasure10!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient11!,
-                                    //   cubit.randomMeals![index].strMeasure11!,
-                                    // ),
-
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient12!,
-                                    //   cubit.randomMeals![index].strMeasure12!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient13!,
-                                    //   cubit.randomMeals![index].strMeasure13!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient14!,
-                                    //   cubit.randomMeals![index].strMeasure14!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient15!,
-                                    //   cubit.randomMeals![index].strMeasure15!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient16!,
-                                    //   cubit.randomMeals![index].strMeasure16!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient17!,
-                                    //   cubit.randomMeals![index].strMeasure17!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient18!,
-                                    //   cubit.randomMeals![index].strMeasure18!,
-                                    // ),
-
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient19!,
-                                    //   cubit.randomMeals![index].strMeasure19!,
-                                    // ),
-                                    // buildIngredientsItem(
-                                    //   phoneSize(context),
-                                    //   context,
-                                    //   index,
-                                    //   cubit
-                                    //       .randomMeals![index].strIngredient20!,
-                                    //   cubit.randomMeals![index].strMeasure20!,
-                                    // ),
-                                    const SizedBox(height: 30.0),
-                                    Text(
-                                      'Instructions: ',
-                                      style: googleStyle(context),
-                                    ),
-                                    const SizedBox(height: 15.0),
-                                    Text(
-                                      cubit
-                                          .randomMeals![index].strInstructions!,
-                                      style: googleStyleSmall(context),
-                                    ),
-                                  ]))
-                        ],
-                      )),
+                                      const SizedBox(width: 10.0),
+                                      Expanded(
+                                        child: Text(
+                                            'Area: ${cubit.randomMeals![index].strArea}',
+                                            style: googleStyleSmall(context)
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w400)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0,
+                                    vertical: 8.0,
+                                  ),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'ingredients: ',
+                                          style: googleStyle(context),
+                                        ),
+                                        const SizedBox(height: 10.0),
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: cubit.randomMeals![index]
+                                              .mealIngerientd!.length,
+                                          itemBuilder: (context, myIndex) {
+                                            return buildIngredientsItem(
+                                              phoneSize(context),
+                                              context,
+                                              myIndex,
+                                              cubit
+                                                  .randomMeals![index]
+                                                  .mealIngerientd![myIndex]
+                                                  .ingredientItem,
+                                              cubit
+                                                  .randomMeals![index]
+                                                  .mealIngerientd![myIndex]
+                                                  .measure,
+                                            );
+                                          },
+                                        ),
+                                        const SizedBox(height: 30.0),
+                                        Text(
+                                          'Instructions: ',
+                                          style: googleStyle(context),
+                                        ),
+                                        const SizedBox(height: 15.0),
+                                        Text(
+                                          cubit.randomMeals![index]
+                                              .strInstructions!,
+                                          style: googleStyleSmall(context)
+                                              .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            wordSpacing: 1.0,
+                                            letterSpacing: 1.0,
+                                          ),
+                                        ),
+                                      ]))
+                            ],
+                          )),
+                        ),
+                      ],
                     ),
                   ),
                 )
