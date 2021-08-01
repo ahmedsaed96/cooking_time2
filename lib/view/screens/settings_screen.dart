@@ -17,35 +17,33 @@ class SettingaScreen extends StatelessWidget {
       body: BlocConsumer<SettingsCubit, SettingsStates>(
         listener: (context, state) {},
         builder: (context, state) => SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text('Change Mode'),
-                      SizedBox(width: phoneSize(context).width / 3),
-                      const Text('Dark'),
-                      Switch(
-                        inactiveThumbColor: Colors.black87,
-                        value: SettingsCubit.get(context).switchValue,
-                        onChanged: (val) {
-                          SettingsCubit.get(context).changeTheme(val);
-                          MySharedPrefrences.saveStringLocal(
-                              key: 'mode',
-                              value: SettingsCubit.get(context)
-                                  .switchValue
-                                  .toString());
-                        },
-                      ),
-                      const Text('Light'),
-                    ],
-                  ),
-                )
-              ],
-            ),
+          child: Column(
+            children: [
+              const SizedBox(height: 15.0),
+              Card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Change Mode'),
+                    SizedBox(width: phoneSize(context).width / 3),
+                    const Text('Dark'),
+                    Switch(
+                      inactiveThumbColor: Colors.black87,
+                      value: SettingsCubit.get(context).switchValue,
+                      onChanged: (val) {
+                        SettingsCubit.get(context).changeTheme(val);
+                        MySharedPrefrences.saveStringLocal(
+                            key: 'mode',
+                            value: SettingsCubit.get(context)
+                                .switchValue
+                                .toString());
+                      },
+                    ),
+                    const Text('Light'),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),
