@@ -1,4 +1,3 @@
-
 //edit emotions
 // check internet connection
 //save favorites offline
