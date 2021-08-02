@@ -42,6 +42,19 @@ class SettingaScreen extends StatelessWidget {
                     const Text('Light'),
                   ],
                 ),
+              ),
+              Card(
+                child: Row(
+                  children: [
+                    SizedBox(height: phoneSize(context).height / 14.5),
+                    SizedBox(width: phoneSize(context).width / 19.5),
+                    const Text(
+                      'Change language',
+                    ),
+                    SizedBox(width: phoneSize(context).width / 4),
+                    const Text('(comming soon)')
+                  ],
+                ),
               )
             ],
           ),

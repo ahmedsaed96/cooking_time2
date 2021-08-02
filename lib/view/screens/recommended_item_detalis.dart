@@ -6,15 +6,12 @@ import 'package:cocking_time/view/widgets/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constant.dart';
-
-//مؤقتا لحد ماانفذ حل افضل
 class RecommendedItemDetailsScreen extends StatelessWidget {
   static const routeName = 'RecommendedItemDetailsScreen';
   @override
   Widget build(BuildContext context) {
     final Map<dynamic, dynamic> argument =
-        // ignore: cast_nullable_to_non_nullable
-        ModalRoute.of(context)!.settings.arguments as Map;
+        ModalRoute.of(context)!.settings.arguments! as Map;
     final thumb = argument['thumb'] as String;
     final index = argument['index'] as int;
     return Scaffold(
@@ -145,146 +142,6 @@ class RecommendedItemDetailsScreen extends StatelessWidget {
                                               );
                                             },
                                           ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient1!,
-                                          //   cubit.allMeals![index].strMeasure1!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient2!,
-                                          //   cubit.allMeals![index].strMeasure2!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient3!,
-                                          //   cubit.allMeals![index].strMeasure3!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient4!,
-                                          //   cubit.allMeals![index].strMeasure4!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient5!,
-                                          //   cubit.allMeals![index].strMeasure5!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient6!,
-                                          //   cubit.allMeals![index].strMeasure6!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient7!,
-                                          //   cubit.allMeals![index].strMeasure7!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient8!,
-                                          //   cubit.allMeals![index].strMeasure8!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient9!,
-                                          //   cubit.allMeals![index].strMeasure9!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient10!,
-                                          //   cubit.allMeals![index].strMeasure10!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient11!,
-                                          //   cubit.allMeals![index].strMeasure11!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient12!,
-                                          //   cubit.allMeals![index].strMeasure12!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient13!,
-                                          //   cubit.allMeals![index].strMeasure13!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient14!,
-                                          //   cubit.allMeals![index].strMeasure14!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient15!,
-                                          //   cubit.allMeals![index].strMeasure15!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient16!,
-                                          //   cubit.allMeals![index].strMeasure16!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient17!,
-                                          //   cubit.allMeals![index].strMeasure17!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient18!,
-                                          //   cubit.allMeals![index].strMeasure18!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient19!,
-                                          //   cubit.allMeals![index].strMeasure19!,
-                                          // ),
-                                          // buildIngredientsItem(
-                                          //   phoneSize(context),
-                                          //   context,
-                                          //   index,
-                                          //   cubit.allMeals![index].strIngredient20!,
-                                          //   cubit.allMeals![index].strMeasure20!,
-                                          // ),
                                           const SizedBox(height: 30.0),
                                           Text(
                                             'Instructions: ',

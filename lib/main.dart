@@ -1,4 +1,3 @@
-// import 'dio_helper/dio_helper.dart';
 import 'package:cocking_time/view/screens/area_meal_details.dart';
 import 'package:cocking_time/view/screens/category_details_screen.dart';
 import 'package:cocking_time/view/screens/category_meal_details.dart';

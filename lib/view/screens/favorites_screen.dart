@@ -2,6 +2,7 @@ import 'package:cocking_time/constant.dart';
 import 'package:cocking_time/cubit/favorite_cubit.dart';
 import 'package:cocking_time/cubit/favorite_state.dart';
 import 'package:cocking_time/cubit/settins_cubit.dart';
+import 'package:cocking_time/local/shared_prefrences.dart';
 import 'package:cocking_time/models/meal_model.dart';
 import 'package:cocking_time/view/widgets/custom_drower.dart';
 import 'package:cocking_time/view/widgets/functions.dart';
@@ -47,7 +48,9 @@ class FavoritesScreen extends StatelessWidget {
       child: Container(
         width: 100.0,
         padding: const EdgeInsets.only(top: 10.0),
-        color: Colors.white, // ممكن يتعدل بعدين
+        color: MySharedPrefrences.getString(key: 'mode') == 'true'
+            ? Colors.white
+            : Colors.grey[600],
         child: Row(
           children: [
             buildCategoryImage(favoriteList, index, context),

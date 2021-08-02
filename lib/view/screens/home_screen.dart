@@ -119,10 +119,12 @@ class HomeScreen extends StatelessWidget {
                                               style: googleStyleSmall(context),
                                             ),
                                           ),
-                                          const SizedBox(height: 5.0),
+                                          const SizedBox(height: 10.0),
                                           Text(
-                                            'by ala ademo',
-                                            style: googleStyleSmall(context),
+                                            HomeCubit.get(context)
+                                                .allMeals![myIndex]
+                                                .strCategory!,
+                                            style: googleStyleSmaller(context),
                                           ),
                                           const SizedBox(height: 8.0),
                                           Row(
